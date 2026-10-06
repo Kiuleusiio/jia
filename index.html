@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUCKY — 视频作品集</title>
+    <meta name="description" content="视频创作者个人作品集｜信息流｜口播｜混剪">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+
+        :root{
+            --blue:#0B3289;
+            --blue2:#234A98;
+            --pink:#FFDAD2;
+            --pink2:#FFE5DF;
+            --lavender:#AAA9C0;
+            --cream:#F4E7E1;
+            --text:#0B3289;
+            --muted:#50628B;
+            --line:rgba(11,50,137,.20);
+        }
+
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{
+            background:
+                    linear-gradient(112deg,
+                    #0B3289 0%,
+                    #35599B 19%,
+                    #777DAA 39%,
+                    #AAA9C0 55%,
+                    #D5C8D1 73%,
+                    #FFDAD2 100%);
+            background-attachment:fixed;
+            color:var(--text);
+            font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+            overflow-x:hidden;
+        }
+        a{text-decoration:none;color:inherit}
+        button{font:inherit}
+
+        body:before{
+            content:"";
+            position:fixed;
+            inset:0;
+            pointer-events:none;
+            z-index:-1;
+            background:
+                    radial-gradient(circle at 18% 15%,rgba(255,255,255,.17),transparent 28%),
+                    radial-gradient(circle at 80% 80%,rgba(255,255,255,.12),transparent 30%);
+        }
+
+        .cursor{
+            position:fixed;width:15px;height:15px;border:1px solid #FFDAD2;
+            border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+            transition:width .2s,height .2s,background .2s;
+        }
+        .cursor.big{width:48px;height:48px;background:rgba(251,220,146,.12)}
+        .progress{
+            position:fixed;left:0;top:0;height:3px;width:0;
+            background:linear-gradient(90deg,#0B3289,#777DAA,#FFDAD2);z-index:10001;
+        }
+
+        /* NAV */
+        .nav{
+            position:fixed;top:0;left:0;width:100%;height:78px;z-index:1000;
+            display:flex;align-items:center;justify-content:space-between;
+            padding:0 5vw;
+            background:rgba(255,218,210,.58);
+            backdrop-filter:blur(20px);
+            border-bottom:1px solid rgba(11,50,137,.16);
+        }
+        .brand{
+            font-size:18px;font-weight:700;letter-spacing:.12em;color:var(--blue);
+        }
+        .brand small{
+            font-size:8px;letter-spacing:.2em;font-weight:400;
+            margin-left:8px;color:#355184;
+        }
+        .brand:first-letter{color:#FFDAD2}
+        .navlinks{display:flex;align-items:center;gap:38px;list-style:none}
+        .navlinks a{
+            display:flex;align-items:center;height:34px;
+            font-size:12px;letter-spacing:.12em;color:#234889;
+            position:relative;padding:8px 0;transition:.3s;
+        }
+        .navlinks a:after{
+            content:"";position:absolute;left:0;bottom:1px;width:0;height:2px;
+            background:#FFDAD2;transition:.3s;
+        }
+        .navlinks a:hover:after,.navlinks a.active:after{width:100%}
+        .navlinks a:hover,.navlinks a.active{color:#fff}
+
+        /* HERO */
+        .hero{
+            min-height:100vh;
+            padding:145px 6vw 60px;
+            display:flex;flex-direction:column;justify-content:space-between;
+            position:relative;overflow:hidden;
+        }
+        .hero:after{
+            content:"";
+            position:absolute;
+            width:min(76vw,1050px);height:500px;
+            left:50%;top:46%;
+            transform:translate(-50%,-50%);
+            border-radius:54px;
+            background:linear-gradient(105deg,#0B3289 0%,#35599B 22%,#777DAA 42%,#AAA9C0 58%,#D5C8D1 78%,#FFDAD2 100%);
+            opacity:.62;
+            filter:blur(1px);
+            pointer-events:none;
+        }
+        .hero-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2}
+        .kicker{
+            font-size:10px;letter-spacing:.22em;color:var(--blue);
+            text-transform:uppercase;
+        }
+        .hero-side{
+            font-size:10px;line-height:1.9;color:#888;text-align:right;
+            letter-spacing:.12em;
+        }
+        .hero h1{
+            position:relative;z-index:2;
+            font-size:clamp(70px,13vw,180px);
+            font-weight:300;letter-spacing:-.09em;
+            line-height:.8;max-width:1300px;
+            margin:10vh 0 10vh;
+        }
+        .hero h1 .line2{margin-left:10vw}
+        .hero h1 em{
+            font-style:normal;
+            background:linear-gradient(100deg,#0B3289 0%,#6670A2 45%,#FFDAD2 100%);
+            -webkit-background-clip:text;background-clip:text;color:transparent;
+            font-weight:700;
+        }
+        .hero-bottom{
+            position:relative;z-index:2;
+            display:flex;justify-content:space-between;align-items:flex-end;
+            border-top:1px solid var(--line);padding-top:18px;
+        }
+        .hero-intro{
+            max-width:600px;font-size:14px;line-height:1.9;color:#aaa;
+        }
+        .hero-intro:before{
+            content:"";
+            display:inline-block;width:8px;height:8px;border-radius:50%;
+            background:#FFDAD2;margin-right:9px;box-shadow:0 0 20px #FFDAD2;
+        }
+        .scroll{font-size:9px;letter-spacing:.2em;color:#355184}
+
+        /* COMMON */
+        section{padding:130px 6vw}
+        .section-head{
+            display:grid;grid-template-columns:1fr 1fr;gap:50px;
+            margin-bottom:75px;
+        }
+        .section-no{
+            font-size:10px;letter-spacing:.2em;color:#FFDAD2;
+            margin-bottom:15px;
+        }
+        .section-title{
+            font-size:clamp(52px,7vw,105px);
+            font-weight:300;letter-spacing:-.07em;line-height:.86;
+        }
+        .section-copy{
+            max-width:470px;color:#999;font-size:14px;line-height:1.9;
+            align-self:end;
+        }
+        .line{height:1px;background:var(--line)}
+
+        /* WORK */
+        .work{
+            background:transparent;
+        }
+        .category{margin-bottom:155px}
+        .category-head{
+            display:flex;justify-content:space-between;align-items:flex-end;
+            margin-bottom:32px;padding:20px 0;
+            border-top:1px solid rgba(11,50,137,.18);
+            border-bottom:1px solid rgba(11,50,137,.18);
+            background:linear-gradient(90deg,rgba(11,50,137,.08),rgba(255,218,210,.16));
+            border-radius:20px;
+            padding:20px 22px;
+        }
+        .category-index{
+            font-size:9px;letter-spacing:.2em;color:#FFDAD2;
+        }
+        .category-title{
+            font-size:38px;font-weight:500;letter-spacing:-.05em;
+            margin-top:8px;
+        }
+        .category-desc{
+            max-width:420px;color:#3f5575;font-size:12px;
+            line-height:1.8;text-align:right;
+        }
+
+        .grid{
+            display:grid;grid-template-columns:repeat(3,1fr);gap:15px;
+        }
+        .card{min-width:0}
+        .media{
+            position:relative;aspect-ratio:16/10;overflow:hidden;
+            background:linear-gradient(135deg,#0B3289 0%,#244A96 52%,#6B75A2 100%);
+            border-radius:30px;
+            border:2px solid rgba(255,255,255,.28);
+            box-shadow:0 20px 55px rgba(11,50,137,.18);
+        }
+        .media:before{
+            content:"";
+            position:absolute;inset:0;z-index:1;pointer-events:none;
+            background:linear-gradient(120deg,rgba(11,50,137,.12),transparent 42%,rgba(251,220,146,.18));
+            mix-blend-mode:screen;
+        }
+        .media video{
+            width:100%;height:100%;display:block;object-fit:cover;
+            transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .5s;
+        }
+        .media:hover video{transform:scale(1.045);filter:brightness(.72)}
+        .media .shade{
+            position:absolute;inset:0;
+            background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.7));
+            opacity:0;transition:.35s;pointer-events:none;z-index:2;
+        }
+        .media:hover .shade{opacity:1}
+        .play{
+            position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.8);
+            width:58px;height:58px;border:1px solid rgba(251,220,146,.9);
+            border-radius:50%;opacity:0;transition:.35s;z-index:3;
+            background:rgba(255,255,255,.18);backdrop-filter:blur(5px);
+        }
+        .play:after{
+            content:"";position:absolute;left:23px;top:18px;
+            border-top:10px solid transparent;border-bottom:10px solid transparent;
+            border-left:13px solid #FFDAD2;
+        }
+        .media:hover .play{opacity:1;transform:translate(-50%,-50%) scale(1)}
+        .card-meta{
+            display:flex;justify-content:space-between;gap:15px;
+            padding:15px 3px 0;
+        }
+        .card-name{font-size:12px;color:var(--blue)}
+        .card-type{font-size:9px;color:#FFDAD2;letter-spacing:.12em}
+        .card-note{
+            font-size:11px;color:#355184;line-height:1.7;
+            margin:8px 3px 0;max-width:340px;
+        }
+
+        /* VIDEO MODAL */
+        .video-modal{
+            position:fixed;
+            inset:0;
+            z-index:20000;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:28px;
+            background:rgba(8,13,32,.88);
+            backdrop-filter:blur(18px);
+            opacity:0;
+            visibility:hidden;
+            pointer-events:none;
+            transition:opacity .25s ease,visibility .25s ease;
+        }
+        .video-modal.open{
+            opacity:1;
+            visibility:visible;
+            pointer-events:auto;
+        }
+        .video-modal-inner{
+            position:relative;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            max-width:calc(100vw - 100px);
+            max-height:calc(100vh - 56px);
+        }
+        #modalVideo{
+            display:block;
+            width:auto;
+            height:auto;
+            max-width:calc(100vw - 100px);
+            max-height:calc(100vh - 56px);
+            object-fit:contain;
+            background:#000;
+            border-radius:18px;
+            box-shadow:0 25px 90px rgba(0,0,0,.42);
+            -webkit-user-select:none;user-select:none;
+        }
+        #modalVideo::-webkit-media-controls-download-button{display:none !important;}
+        #modalVideo::-webkit-media-controls-picture-in-picture-button{display:none !important;}
+        .video-close{
+            position:fixed;
+            top:22px;
+            right:28px;
+            width:58px;
+            height:58px;
+            border:1px solid rgba(255,255,255,.65);
+            border-radius:50%;
+            background:rgba(255,255,255,.08);
+            color:#fff;
+            font-size:32px;
+            font-weight:300;
+            line-height:1;
+            cursor:pointer;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            transition:background .2s ease,transform .2s ease;
+        }
+        .video-close:hover{
+            background:rgba(255,255,255,.18);
+            transform:scale(1.05);
+        }
+        .media{cursor:pointer}
+        @media(max-width:850px){
+            .video-modal{padding:16px}
+            .video-modal-inner,#modalVideo{
+                max-width:calc(100vw - 32px);
+                max-height:calc(100vh - 100px);
+            }
+            .video-close{
+                top:14px;right:14px;width:48px;height:48px;font-size:27px;
+            }
+        }
+
+        /* CONTACT */
+        .contact{
+            min-height:86vh;display:flex;flex-direction:column;justify-content:space-between;
+            background:
+                    radial-gradient(circle at 15% 80%,rgba(11,50,137,.22),transparent 34%),
+                    radial-gradient(circle at 85% 20%,rgba(255,218,210,.42),transparent 34%);
+        }
+        .contact h2{
+            font-size:clamp(75px,13vw,185px);
+            font-weight:300;letter-spacing:-.09em;line-height:.78;
+        }
+        .contact h2 span{
+            background:linear-gradient(100deg,#0B3289 0%,#777DAA 52%,#FFDAD2 100%);
+            -webkit-background-clip:text;background-clip:text;color:transparent;
+            font-weight:700;
+        }
+        .contact-bottom{
+            display:flex;justify-content:space-between;align-items:flex-end;
+            border-top:1px solid var(--line);padding-top:25px;
+        }
+        .contact-text{
+            font-size:14px;color:#999;line-height:1.8;max-width:500px;
+        }
+        .email{
+            font-size:18px;color:#FFDAD2;
+            border-bottom:1px solid #FFDAD2;padding-bottom:8px;
+            transition:.3s;
+        }
+        .email:hover{color:#fff;border-color:#fff}
+
+        footer{
+            padding:26px 6vw;border-top:1px solid var(--line);
+            display:flex;justify-content:space-between;
+            font-size:9px;color:#355184;letter-spacing:.12em;
+            background:rgba(255,218,210,.28);
+        }
+
+        /* reveal */
+        .reveal{
+            opacity:0;transform:translateY(35px);
+            transition:opacity .8s ease,transform .8s ease;
+        }
+        .reveal.show{opacity:1;transform:none}
+
+
+        /* 作品下拉导航 */
+        .works-nav{
+            position:relative;
+        }
+        .works-nav::after{
+            content:"";
+            position:absolute;
+            left:-15px;
+            right:-15px;
+            top:100%;
+            height:18px;
+            background:transparent;
+        }
+        .works-link{
+            display:flex;
+            align-items:center;
+            gap:5px;
+        }
+        .nav-arrow{
+            display:inline-block;
+            font-size:13px;
+            line-height:1;
+            transform:translateY(-1px);
+            transition:transform .25s ease;
+        }
+        .works-nav:hover .nav-arrow{
+            transform:rotate(180deg) translateY(1px);
+        }
+
+        .works-dropdown{
+            position:absolute;
+            top:calc(100% + 10px);
+            left:50%;
+            width:190px;
+            z-index:1005;
+            transform:translate(-50%,0);
+            padding:10px;
+            border:1px solid rgba(11,50,137,.16);
+            border-radius:18px;
+            background:linear-gradient(135deg,rgba(255,255,255,.90),rgba(255,218,210,.90));
+            backdrop-filter:blur(18px);
+            box-shadow:0 18px 45px rgba(11,50,137,.16);
+            opacity:0;
+            visibility:hidden;
+            pointer-events:none;
+            transition:opacity .22s ease,visibility .22s ease;
+        }
+        .works-dropdown:before{
+            content:"";
+            position:absolute;
+            top:-7px;
+            left:50%;
+            width:13px;
+            height:13px;
+            transform:translateX(-50%) rotate(45deg);
+            background:#f7e6e4;
+            border-left:1px solid rgba(11,50,137,.12);
+            border-top:1px solid rgba(11,50,137,.12);
+        }
+        .works-nav:hover .works-dropdown,
+        .works-nav:focus-within .works-dropdown{
+            opacity:1;
+            visibility:visible;
+            pointer-events:auto;
+        }
+        .works-dropdown a{
+            display:flex;
+            align-items:center;
+            gap:13px;
+            padding:13px 12px;
+            border-radius:11px;
+            color:#0B3289;
+            font-size:12px;
+            letter-spacing:.08em;
+            transition:background .22s ease,transform .22s ease,color .22s ease;
+        }
+        .works-dropdown a span{
+            font-size:9px;
+            color:#7a80a6;
+            letter-spacing:.08em;
+        }
+        .works-dropdown a:hover{
+            background:linear-gradient(90deg,rgba(11,50,137,.13),rgba(255,218,210,.55));
+            transform:translateX(4px);
+            color:#0B3289;
+        }
+
+        /* 点击作品分类后，标题位置不会被固定导航挡住 */
+        #information-flow,
+        #talking-head,
+        #montage{
+            scroll-margin-top:105px;
+        }
+
+        /* 分类被定位到时轻微强调一下 */
+        .category:target .category-head{
+            animation:categoryFocus 1.2s ease;
+        }
+        @keyframes categoryFocus{
+            0%{box-shadow:0 0 0 0 rgba(11,50,137,.28)}
+            35%{box-shadow:0 0 0 7px rgba(11,50,137,.12)}
+            100%{box-shadow:0 0 0 0 rgba(11,50,137,0)}
+        }
+
+        @media(max-width:850px){
+            .cursor{display:none}
+            .nav{height:65px;padding:0 22px}
+            .navlinks{gap:18px}
+            .navlinks a{font-size:10px}
+            .hero{padding:115px 22px 40px}
+            .hero h1{font-size:20vw;margin:18vh 0 15vh}
+            .hero h1 .line2{margin-left:4vw}
+            .hero-side{display:none}
+            .hero-bottom{display:block}
+            .scroll{margin-top:25px}
+            section{padding:90px 22px}
+            .section-head{grid-template-columns:1fr;gap:30px;margin-bottom:55px}
+            .category{margin-bottom:105px}
+            .category-head{display:block}
+            .category-desc{text-align:left;margin-top:16px}
+            .grid{grid-template-columns:1fr;gap:34px}
+            .media{border-radius:22px}
+            .contact{min-height:75vh}
+            .contact-bottom{display:block}
+            .email{display:inline-block;margin-top:30px}
+            footer{padding:22px;display:block}
+            footer div+div{margin-top:10px}
+        }
+        @media(max-width:520px){
+            .navlinks{gap:13px}
+            .brand small{display:none}
+        }
+
+        @media(max-width:850px){
+            .works-nav::after{display:none}
+            .works-dropdown{
+                left:auto;
+                right:-12px;
+                top:calc(100% + 8px);
+                transform:translateY(0);
+            }
+            .works-nav:hover .works-dropdown{
+                opacity:0;
+                visibility:hidden;
+                pointer-events:none;
+            }
+            .works-nav:focus-within .works-dropdown{
+                opacity:1;
+                visibility:visible;
+                pointer-events:auto;
+            }
+        }
+
+    </style>
+    <style>
+        .hero, .work, .contact{
+            position:relative;
+        }
+        .hero::before,.work::before,.contact::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            pointer-events:none;
+            background:
+                    linear-gradient(135deg,rgba(11,50,137,.08),transparent 36%,rgba(251,220,146,.10) 100%);
+        }
+        .hero > *, .work > *, .contact > *{
+            position:relative;
+            z-index:1;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="progress"></div>
+<div class="cursor"></div>
+
+<header class="nav">
+    <a href="#home" class="brand">LUCKY <small>VIDEO CREATOR</small></a>
+    <nav>
+        <ul class="navlinks">
+            <li><a href="#home" class="active">首页</a></li>
+            <li class="works-nav">
+                <a href="#work" class="works-link">作品 <span class="nav-arrow">⌄</span></a>
+                <div class="works-dropdown">
+                    <a href="#information-flow" data-target="information-flow"><span>01</span>信息流</a>
+                    <a href="#talking-head" data-target="talking-head"><span>02</span>口播</a>
+                    <a href="#montage" data-target="montage"><span>03</span>混剪</a>
+                </div>
+            </li>
+            <li><a href="#contact">联系我</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- 视频大屏播放层：视频按原始比例显示，不强制铺满整个页面 -->
+<div class="video-modal" id="videoModal" aria-hidden="true">
+    <button class="video-close" id="videoClose" type="button" aria-label="关闭视频">×</button>
+    <div class="video-modal-inner">
+        <video id="modalVideo" controls controlslist="nodownload noremoteplayback" disablepictureinpicture playsinline preload="metadata"></video>
+    </div>
+</div>
+
+<main>
+    <!-- 首页 -->
+    <section class="hero" id="home">
+        <div class="hero-top">
+            <div class="kicker">VIDEO PORTFOLIO / 2026</div>
+            <div class="hero-side">INFORMATION FLOW<br>口播 CONTENT<br>VIDEO EDITING</div>
+        </div>
+
+        <h1>
+            VIDEO<br>
+            <span class="line2"><em>THAT</em> SPEAKS.</span>
+        </h1>
+
+        <div class="hero-bottom">
+            <p class="hero-intro">
+                你好，我是 Lucky。<br>
+                这是一份以视频内容为核心的个人作品集，主要展示信息流、口播和混剪三类作品。
+                我关注内容节奏、画面表达与用户注意力，希望让每一条视频不仅“剪得好”，也能更有效地传达内容。
+            </p>
+            <div class="scroll">#0B3289 · #FBDC92 &nbsp; / &nbsp; SCROLL ↓</div>
+        </div>
+    </section>
+
+    <!-- 作品 -->
+    <section class="work" id="work">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-no">01 / SELECTED WORK</div>
+                <h2 class="section-title">我的<br>作品</h2>
+            </div>
+            <p class="section-copy">
+                这里只保留与求职最相关的内容。三个方向、九条视频，
+                用不同的视频形式展示我的剪辑思路、节奏控制和内容表达能力。
+            </p>
+        </div>
+
+        <!-- 信息流 -->
+        <div class="category reveal" id="information-flow">
+            <div class="category-head">
+                <div>
+                    <div class="category-index">01 — INFORMATION FLOW</div>
+                    <h3 class="category-title">信息流</h3>
+                </div>
+                <p class="category-desc">
+                    重点展示前3秒吸引力、信息密度、节奏变化和画面包装，
+                    适合用于展示短视频内容制作能力。
+                </p>
+            </div>
+
+            <div class="grid">
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/1.mp4?v=20261006-18s" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">信息流作品 01</span><span class="card-type">01 / 03</span></div>
+                    <p class="card-note">强调开头抓取、信息节奏与视觉重点。</p>
+                </article>
+
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/2.mp4" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">信息流作品 02</span><span class="card-type">02 / 03</span></div>
+                    <p class="card-note">通过剪辑节奏和素材组合提升观看完整度。</p>
+                </article>
+
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/3.mp4" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">信息流作品 03</span><span class="card-type">03 / 03</span></div>
+                    <p class="card-note">突出内容重点，并保持画面信息清晰。</p>
+                </article>
+            </div>
+        </div>
+
+        <!-- 口播 -->
+        <div class="category reveal" id="talking-head">
+            <div class="category-head">
+                <div>
+                    <div class="category-index">02 — TALKING HEAD</div>
+                    <h3 class="category-title">口播</h3>
+                </div>
+                <p class="category-desc">
+                    重点展示人物节奏、字幕包装、镜头切换与内容重点提炼，
+                    让信息表达更自然、更有观看节奏。
+                </p>
+            </div>
+
+            <div class="grid">
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/7.mp4" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">口播作品 01</span><span class="card-type">01 / 03</span></div>
+                    <p class="card-note">突出人物表达与内容重点，减少冗余信息。</p>
+                </article>
+
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/8.mp4" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">口播作品 02</span><span class="card-type">02 / 03</span></div>
+                    <p class="card-note">通过剪辑、字幕和画面节奏增强观看体验。</p>
+                </article>
+
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/talking-03.mp4" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">口播作品 03</span><span class="card-type">03 / 03</span></div>
+                    <p class="card-note">保持信息准确，同时让内容更加紧凑易懂。</p>
+                </article>
+            </div>
+        </div>
+
+        <!-- 混剪 -->
+        <div class="category reveal" id="montage">
+            <div class="category-head">
+                <div>
+                    <div class="category-index">03 — MONTAGE</div>
+                    <h3 class="category-title">混剪</h3>
+                </div>
+                <p class="category-desc">
+                    重点展示素材选择、音乐卡点、镜头衔接与情绪营造，
+                    用更完整的视觉语言呈现内容。
+                </p>
+            </div>
+
+            <div class="grid">
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/4.mp4" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">混剪作品 01</span><span class="card-type">01 / 03</span></div>
+                    <p class="card-note">通过音乐和镜头节奏建立完整的情绪变化。</p>
+                </article>
+
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/5.mp4" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">混剪作品 02</span><span class="card-type">02 / 03</span></div>
+                    <p class="card-note">强调素材之间的衔接与画面节奏。</p>
+                </article>
+
+                <article class="card">
+                    <div class="media">
+                        <video src="videos/6.mp4" muted playsinline preload="metadata"></video>
+                        <div class="shade"></div><div class="play"></div>
+                    </div>
+                    <div class="card-meta"><span class="card-name">混剪作品 03</span><span class="card-type">03 / 03</span></div>
+                    <p class="card-note">通过镜头组合和音乐配合完成视觉表达。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系 -->
+    <section class="contact" id="contact">
+        <div>
+            <div class="section-no reveal">03 / CONTACT</div>
+            <h2 class="reveal">LET'S<br><span>CREATE.</span></h2>
+        </div>
+
+        <div class="contact-bottom reveal">
+            <p class="contact-text">
+                如果你正在招聘视频剪辑、短视频内容或视觉方向的岗位，
+                欢迎查看我的作品，也欢迎和我进一步交流。
+            </p>
+            <!-- 把下面邮箱改成你自己的 -->
+            <a class="email" href="mailto:your@email.com">your@email.com ↗</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div>© 2026 LUCKY — VIDEO PORTFOLIO</div>
+    <div>INFORMATION FLOW · TALKING HEAD · MONTAGE</div>
+</footer>
+
+<script>
+    const cursor = document.querySelector('.cursor');
+    const progress = document.querySelector('.progress');
+    const videoModal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const videoClose = document.getElementById('videoClose');
+
+    // 禁止原生播放器的“下载”入口与右键菜单。
+    modalVideo.setAttribute('controlsList', 'nodownload noremoteplayback');
+    modalVideo.setAttribute('disablePictureInPicture', '');
+    modalVideo.addEventListener('contextmenu', e => e.preventDefault());
+
+    /* 自定义鼠标 */
+    document.addEventListener('mousemove', e => {
+        if (!cursor) return;
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a,.media').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor?.classList.add('big'));
+        el.addEventListener('mouseleave', () => cursor?.classList.remove('big'));
+    });
+
+    /*
+      视频卡片：
+      1. 不再因为鼠标移出而暂停/归零
+      2. 不在卡片里直接播放，避免小窗口播放时状态混乱
+      3. 点击卡片打开大屏播放器
+      4. 视频不循环，播完后回到第一帧，可以再次点击播放
+    */
+    const cards = document.querySelectorAll('.media');
+
+    cards.forEach(box => {
+        const video = box.querySelector('video');
+        if (!video) return;
+
+        video.removeAttribute('loop');
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+
+        // 尽量让卡片在加载后停留在第一帧，而不是黑屏
+        video.addEventListener('loadedmetadata', () => {
+            try {
+                video.currentTime = 0;
+            } catch (_) {}
+        });
+
+        video.addEventListener('loadeddata', () => {
+            if (!video.paused) video.pause();
+            try { video.currentTime = 0; } catch (_) {}
+        });
+
+        // 点击卡片/播放按钮，打开大屏播放器。第一个视频带版本参数，避免浏览器继续读取旧的两分钟缓存。
+        box.addEventListener('click', () => {
+            openVideo(video);
+        });
+    });
+
+    function openVideo(sourceVideo) {
+        const source = sourceVideo.currentSrc || sourceVideo.src;
+        if (!source) return;
+
+        // 关闭之前的视频状态，避免上一个视频影响下一个
+        modalVideo.pause();
+        modalVideo.removeAttribute('src');
+        modalVideo.load();
+
+        modalVideo.src = source;
+        modalVideo.muted = false;
+        modalVideo.playsInline = true;
+        modalVideo.setAttribute('controlsList', 'nodownload noremoteplayback');
+        modalVideo.setAttribute('disablePictureInPicture', '');
+        modalVideo.load();
+
+        recoveryCount = 0;
+        lastFrameAt = performance.now();
+        lastVideoTime = 0;
+        videoModal.classList.add('open');
+        videoModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        // 等元数据读取完成后，从头播放
+        const startPlayback = () => {
+            try { modalVideo.currentTime = 0; } catch (_) {}
+            modalVideo.play().catch(() => {
+                // 浏览器如果阻止带声音自动播放，用户可以点击原生播放按钮
+            });
+        };
+
+        if (modalVideo.readyState >= 1) {
+            startPlayback();
+        } else {
+            modalVideo.addEventListener('loadedmetadata', startPlayback, { once: true });
+        }
+    }
+
+    function closeVideo() {
+        modalVideo.pause();
+        recoveryCount = 0;
+        modalVideo.removeAttribute('src');
+        modalVideo.load();
+        videoModal.classList.remove('open');
+        videoModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    videoClose.addEventListener('click', closeVideo);
+
+    // 点击视频外面的空白区域也可以关闭
+    videoModal.addEventListener('click', e => {
+        if (e.target === videoModal) closeVideo();
+    });
+
+    // ESC 关闭
+    window.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && videoModal.classList.contains('open')) {
+            closeVideo();
+        }
+    });
+
+    // 某些浏览器在本地 MP4 解码异常时可能出现“声音继续、画面黑掉”。
+    // 如果检测到播放时间继续前进，但视频帧长时间没有更新，尝试从当前位置恢复一次。
+    let lastFrameAt = performance.now();
+    let recoveryCount = 0;
+    let lastVideoTime = 0;
+
+    function watchVideoFrames(now) {
+        if (!modalVideo.paused && !modalVideo.ended) {
+            if (modalVideo.currentTime !== lastVideoTime) lastVideoTime = modalVideo.currentTime;
+            if (typeof modalVideo.requestVideoFrameCallback === 'function') {
+                modalVideo.requestVideoFrameCallback((t) => {
+                    lastFrameAt = t;
+                    watchVideoFrames(t);
+                });
+            }
+        }
+    }
+
+    modalVideo.addEventListener('play', () => {
+        lastFrameAt = performance.now();
+        lastVideoTime = modalVideo.currentTime;
+        recoveryCount = 0;
+        watchVideoFrames(lastFrameAt);
+    });
+
+    const recoveryTimer = setInterval(() => {
+        if (!videoModal.classList.contains('open') || modalVideo.paused || modalVideo.ended) return;
+        const now = performance.now();
+        const timeMoved = Math.abs(modalVideo.currentTime - lastVideoTime) > 0.15;
+        if (timeMoved && now - lastFrameAt > 2500 && recoveryCount < 2) {
+            const resumeAt = modalVideo.currentTime;
+            recoveryCount++;
+            const src = modalVideo.currentSrc || modalVideo.src;
+            modalVideo.pause();
+            modalVideo.removeAttribute('src');
+            modalVideo.load();
+            modalVideo.src = src;
+            modalVideo.setAttribute('controlsList', 'nodownload noremoteplayback');
+            modalVideo.setAttribute('disablePictureInPicture', '');
+            modalVideo.load();
+            modalVideo.addEventListener('loadedmetadata', function recover() {
+                modalVideo.removeEventListener('loadedmetadata', recover);
+                try { modalVideo.currentTime = resumeAt; } catch (_) {}
+                modalVideo.play().catch(() => {});
+                lastFrameAt = performance.now();
+                lastVideoTime = resumeAt;
+            });
+        }
+    }, 500);
+
+    // 播放结束：停在第一帧，不黑屏；再次点击原卡片即可重新播放
+    modalVideo.addEventListener('ended', () => {
+        modalVideo.pause();
+        try { modalVideo.currentTime = 0; } catch (_) {}
+    });
+
+    // 视频加载失败时给出控制台信息，避免页面静默失败
+    modalVideo.addEventListener('error', () => {
+        console.warn('视频无法播放，请检查文件路径或 MP4 编码：', modalVideo.currentSrc || modalVideo.src);
+    });
+
+    /* reveal 动画 */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('show');
+        });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* 顶部进度条 + 导航高亮 */
+    const sections = [
+        document.querySelector('#home'),
+        document.querySelector('#work'),
+        document.querySelector('#contact')
+    ];
+    const links = [...document.querySelectorAll('.navlinks > li > a')];
+
+    window.addEventListener('scroll', () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
+
+        let current = 'home';
+        sections.forEach(section => {
+            if (section && window.scrollY >= section.offsetTop - 180) current = section.id;
+        });
+
+        links.forEach(a => {
+            const href = a.getAttribute('href');
+            a.classList.toggle('active', href === '#' + current);
+        });
+    });
+
+    /* 作品下拉菜单：点击后精确滚动到对应作品分类 */
+    document.querySelectorAll('.works-dropdown a[data-target]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const targetId = this.dataset.target;
+            const target = document.getElementById(targetId);
+            if (!target) return;
+
+            const navHeight = document.querySelector('.nav')?.offsetHeight || 78;
+            const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 18;
+
+            window.scrollTo({
+                top: Math.max(0, targetTop),
+                behavior: 'smooth'
+            });
+
+            history.pushState(null, '', '#' + targetId);
+        });
+    });
+
+    /* 如果直接打开 #information-flow / #talking-head / #montage，也自动定位 */
+    window.addEventListener('load', () => {
+        const id = window.location.hash.replace('#', '');
+        const valid = ['information-flow', 'talking-head', 'montage'];
+        if (valid.includes(id)) {
+            setTimeout(() => {
+                const target = document.getElementById(id);
+                if (!target) return;
+                const navHeight = document.querySelector('.nav')?.offsetHeight || 78;
+                window.scrollTo({
+                    top: Math.max(0, target.getBoundingClientRect().top + window.pageYOffset - navHeight - 18),
+                    behavior: 'smooth'
+                });
+            }, 150);
+        }
+    });
+</script>
+</body>
+</html>
