@@ -324,6 +324,9 @@
             }
         }
 
+        #videoStatus {position:absolute;bottom:60px;left:0;right:0;text-align:center;color:#fff;font-size:14px;pointer-events:none;text-shadow:0 1px 4px #000;}
+        .media:focus-visible {outline:3px solid #FFDAD2;outline-offset:4px;}
+
         /* CONTACT */
         .contact{
             min-height:86vh;display:flex;flex-direction:column;justify-content:space-between;
@@ -569,7 +572,8 @@
 <div class="video-modal" id="videoModal" aria-hidden="true">
     <button class="video-close" id="videoClose" type="button" aria-label="关闭视频">×</button>
     <div class="video-modal-inner">
-        <video id="modalVideo" controls controlslist="nodownload noremoteplayback" disablepictureinpicture playsinline preload="metadata"></video>
+        <video id="modalVideo" controls controlslist="nodownload noremoteplayback" disablepictureinpicture playsinline preload="none"></video>
+        <p id="videoStatus" role="status" aria-live="polite"></p>
     </div>
 </div>
 
@@ -625,7 +629,7 @@
             <div class="grid">
                 <article class="card">
                     <div class="media">
-                        <video src="videos/1.mp4?v=20261006-18s" muted playsinline preload="metadata"></video>
+                        <video data-src="videos/web/1.mp4" poster="videos/posters/1.jpg" muted playsinline preload="none"></video>
                         <div class="shade"></div><div class="play"></div>
                     </div>
                     <div class="card-meta"><span class="card-name">信息流作品 01</span><span class="card-type">01 / 03</span></div>
@@ -634,7 +638,7 @@
 
                 <article class="card">
                     <div class="media">
-                        <video src="videos/2.mp4" muted playsinline preload="metadata"></video>
+                        <video data-src="videos/web/2.mp4" poster="videos/posters/2.jpg" muted playsinline preload="none"></video>
                         <div class="shade"></div><div class="play"></div>
                     </div>
                     <div class="card-meta"><span class="card-name">信息流作品 02</span><span class="card-type">02 / 03</span></div>
@@ -643,7 +647,7 @@
 
                 <article class="card">
                     <div class="media">
-                        <video src="videos/3.mp4" muted playsinline preload="metadata"></video>
+                        <video data-src="videos/web/3.mp4" poster="videos/posters/3.jpg" muted playsinline preload="none"></video>
                         <div class="shade"></div><div class="play"></div>
                     </div>
                     <div class="card-meta"><span class="card-name">信息流作品 03</span><span class="card-type">03 / 03</span></div>
@@ -668,29 +672,20 @@
             <div class="grid">
                 <article class="card">
                     <div class="media">
-                        <video src="videos/7.mp4" muted playsinline preload="metadata"></video>
+                        <video data-src="videos/web/7.mp4" poster="videos/posters/7.jpg" muted playsinline preload="none"></video>
                         <div class="shade"></div><div class="play"></div>
                     </div>
-                    <div class="card-meta"><span class="card-name">口播作品 01</span><span class="card-type">01 / 03</span></div>
+                    <div class="card-meta"><span class="card-name">口播作品 01</span><span class="card-type">01 / 02</span></div>
                     <p class="card-note">突出人物表达与内容重点，减少冗余信息。</p>
                 </article>
 
                 <article class="card">
                     <div class="media">
-                        <video src="videos/8.mp4" muted playsinline preload="metadata"></video>
+                        <video data-src="videos/web/8.mp4" poster="videos/posters/8.jpg" muted playsinline preload="none"></video>
                         <div class="shade"></div><div class="play"></div>
                     </div>
-                    <div class="card-meta"><span class="card-name">口播作品 02</span><span class="card-type">02 / 03</span></div>
+                    <div class="card-meta"><span class="card-name">口播作品 02</span><span class="card-type">02 / 02</span></div>
                     <p class="card-note">通过剪辑、字幕和画面节奏增强观看体验。</p>
-                </article>
-
-                <article class="card">
-                    <div class="media">
-                        <video src="videos/talking-03.mp4" muted playsinline preload="metadata"></video>
-                        <div class="shade"></div><div class="play"></div>
-                    </div>
-                    <div class="card-meta"><span class="card-name">口播作品 03</span><span class="card-type">03 / 03</span></div>
-                    <p class="card-note">保持信息准确，同时让内容更加紧凑易懂。</p>
                 </article>
             </div>
         </div>
@@ -711,7 +706,7 @@
             <div class="grid">
                 <article class="card">
                     <div class="media">
-                        <video src="videos/4.mp4" muted playsinline preload="metadata"></video>
+                        <video data-src="videos/web/4.mp4" poster="videos/posters/4.jpg" muted playsinline preload="none"></video>
                         <div class="shade"></div><div class="play"></div>
                     </div>
                     <div class="card-meta"><span class="card-name">混剪作品 01</span><span class="card-type">01 / 03</span></div>
@@ -720,7 +715,7 @@
 
                 <article class="card">
                     <div class="media">
-                        <video src="videos/5.mp4" muted playsinline preload="metadata"></video>
+                        <video data-src="videos/web/5.mp4" poster="videos/posters/5.jpg" muted playsinline preload="none"></video>
                         <div class="shade"></div><div class="play"></div>
                     </div>
                     <div class="card-meta"><span class="card-name">混剪作品 02</span><span class="card-type">02 / 03</span></div>
@@ -729,7 +724,7 @@
 
                 <article class="card">
                     <div class="media">
-                        <video src="videos/6.mp4" muted playsinline preload="metadata"></video>
+                        <video data-src="videos/web/6.mp4" poster="videos/posters/6.jpg" muted playsinline preload="none"></video>
                         <div class="shade"></div><div class="play"></div>
                     </div>
                     <div class="card-meta"><span class="card-name">混剪作品 03</span><span class="card-type">03 / 03</span></div>
@@ -791,83 +786,58 @@
       1. 不再因为鼠标移出而暂停/归零
       2. 不在卡片里直接播放，避免小窗口播放时状态混乱
       3. 点击卡片打开大屏播放器
-      4. 视频不循环，播完后回到第一帧，可以再次点击播放
+      4. 视频不循环，可使用原生控制条重新播放
     */
     const cards = document.querySelectorAll('.media');
+    let activeCard = null;
 
     cards.forEach(box => {
         const video = box.querySelector('video');
         if (!video) return;
-
-        video.removeAttribute('loop');
-        video.muted = true;
-        video.playsInline = true;
-        video.preload = 'metadata';
-
-        // 尽量让卡片在加载后停留在第一帧，而不是黑屏
-        video.addEventListener('loadedmetadata', () => {
-            try {
-                video.currentTime = 0;
-            } catch (_) {}
-        });
-
-        video.addEventListener('loadeddata', () => {
-            if (!video.paused) video.pause();
-            try { video.currentTime = 0; } catch (_) {}
-        });
-
-        // 点击卡片/播放按钮，打开大屏播放器。第一个视频带版本参数，避免浏览器继续读取旧的两分钟缓存。
-        box.addEventListener('click', () => {
-            openVideo(video);
+        box.tabIndex = 0;
+        box.setAttribute('role', 'button');
+        const name = box.closest('.card').querySelector('.card-name').textContent;
+        box.setAttribute('aria-label', '播放' + name);
+        box.addEventListener('click', () => openVideo(video, box));
+        box.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openVideo(video, box);
+            }
         });
     });
 
-    function openVideo(sourceVideo) {
-        const source = sourceVideo.currentSrc || sourceVideo.src;
+    function openVideo(sourceVideo, card) {
+        const source = sourceVideo.dataset.src;
         if (!source) return;
-
-        // 关闭之前的视频状态，避免上一个视频影响下一个
+        activeCard = card;
         modalVideo.pause();
-        modalVideo.removeAttribute('src');
-        modalVideo.load();
-
+        videoStatus.textContent = '';
+        modalVideo.poster = sourceVideo.poster;
         modalVideo.src = source;
         modalVideo.muted = false;
-        modalVideo.playsInline = true;
-        modalVideo.setAttribute('controlsList', 'nodownload noremoteplayback');
-        modalVideo.setAttribute('disablePictureInPicture', '');
-        modalVideo.load();
-
-        recoveryCount = 0;
-        lastFrameAt = performance.now();
-        lastVideoTime = 0;
         videoModal.classList.add('open');
         videoModal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-
-        // 等元数据读取完成后，从头播放
-        const startPlayback = () => {
-            try { modalVideo.currentTime = 0; } catch (_) {}
-            modalVideo.play().catch(() => {
-                // 浏览器如果阻止带声音自动播放，用户可以点击原生播放按钮
-            });
-        };
-
-        if (modalVideo.readyState >= 1) {
-            startPlayback();
-        } else {
-            modalVideo.addEventListener('loadedmetadata', startPlayback, { once: true });
-        }
+        videoClose.focus();
+        // Play within the click gesture. The browser buffers without resetting the source.
+        modalVideo.play().catch(error => {
+            if (error.name === 'NotAllowedError') {
+                videoStatus.textContent = '请点击播放器的播放按钮';
+            }
+        });
     }
 
     function closeVideo() {
         modalVideo.pause();
-        recoveryCount = 0;
         modalVideo.removeAttribute('src');
+        modalVideo.removeAttribute('poster');
         modalVideo.load();
+        videoStatus.textContent = '';
         videoModal.classList.remove('open');
         videoModal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        activeCard?.focus();
     }
 
     videoClose.addEventListener('click', closeVideo);
@@ -884,68 +854,18 @@
         }
     });
 
-    // 某些浏览器在本地 MP4 解码异常时可能出现“声音继续、画面黑掉”。
-    // 如果检测到播放时间继续前进，但视频帧长时间没有更新，尝试从当前位置恢复一次。
-    let lastFrameAt = performance.now();
-    let recoveryCount = 0;
-    let lastVideoTime = 0;
-
-    function watchVideoFrames(now) {
-        if (!modalVideo.paused && !modalVideo.ended) {
-            if (modalVideo.currentTime !== lastVideoTime) lastVideoTime = modalVideo.currentTime;
-            if (typeof modalVideo.requestVideoFrameCallback === 'function') {
-                modalVideo.requestVideoFrameCallback((t) => {
-                    lastFrameAt = t;
-                    watchVideoFrames(t);
-                });
-            }
-        }
-    }
-
-    modalVideo.addEventListener('play', () => {
-        lastFrameAt = performance.now();
-        lastVideoTime = modalVideo.currentTime;
-        recoveryCount = 0;
-        watchVideoFrames(lastFrameAt);
+    // 网络缓冲交给浏览器处理，不重置视频地址或打断播放进度。
+    const videoStatus = document.getElementById('videoStatus');
+    modalVideo.addEventListener('waiting', () => {
+        videoStatus.textContent = '正在缓冲…';
     });
-
-    const recoveryTimer = setInterval(() => {
-        if (!videoModal.classList.contains('open') || modalVideo.paused || modalVideo.ended) return;
-        const now = performance.now();
-        const timeMoved = Math.abs(modalVideo.currentTime - lastVideoTime) > 0.15;
-        if (timeMoved && now - lastFrameAt > 2500 && recoveryCount < 2) {
-            const resumeAt = modalVideo.currentTime;
-            recoveryCount++;
-            const src = modalVideo.currentSrc || modalVideo.src;
-            modalVideo.pause();
-            modalVideo.removeAttribute('src');
-            modalVideo.load();
-            modalVideo.src = src;
-            modalVideo.setAttribute('controlsList', 'nodownload noremoteplayback');
-            modalVideo.setAttribute('disablePictureInPicture', '');
-            modalVideo.load();
-            modalVideo.addEventListener('loadedmetadata', function recover() {
-                modalVideo.removeEventListener('loadedmetadata', recover);
-                try { modalVideo.currentTime = resumeAt; } catch (_) {}
-                modalVideo.play().catch(() => {});
-                lastFrameAt = performance.now();
-                lastVideoTime = resumeAt;
-            });
-        }
-    }, 500);
-
-    // 播放结束：停在第一帧，不黑屏；再次点击原卡片即可重新播放
-    modalVideo.addEventListener('ended', () => {
-        modalVideo.pause();
-        try { modalVideo.currentTime = 0; } catch (_) {}
-    });
-
-    // 视频加载失败时给出控制台信息，避免页面静默失败
+    modalVideo.addEventListener('playing', () => { videoStatus.textContent = ''; });
+    modalVideo.addEventListener('canplay', () => { videoStatus.textContent = ''; });
+    modalVideo.addEventListener('ended', () => { videoStatus.textContent = ''; });
     modalVideo.addEventListener('error', () => {
-        console.warn('视频无法播放，请检查文件路径或 MP4 编码：', modalVideo.currentSrc || modalVideo.src);
+        if (modalVideo.hasAttribute('src')) videoStatus.textContent = '视频加载失败，请关闭后重试';
     });
 
-    /* reveal 动画 */
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('show');
